@@ -21,18 +21,22 @@ end
 
 #Phase1: O(n^2)
 def largest_contiguous_subsum(list)
-    sub_arrays=[]
-    list.each_with_index do |ele,i|
-        (i...list.length).each do |j|
-            sub_arrays << list[i..j]
-        end
+    sub_arrays = []
+    list.each_with_index do |ele, i|
+      (i...list.length).each do |j|
+        sub_arrays << list[i..j]
+      end
     end
-    max = sub_arrays.first.sum
-    sub_arrays.each do |ele|
-        max = ele.sum if ele.sum >= max
+  
+    max_sum = sub_arrays.empty? ? 0 : sub_arrays.first.sum
+  
+    sub_arrays.each do |sub_array|
+      max_sum = sub_array.sum if sub_array.sum >= max_sum
     end
-    max
-end
+  
+    max_sum
+  end
+  
 
 #Phase2:
 def largest_contiguous_subsum_2(arr)
@@ -40,11 +44,14 @@ def largest_contiguous_subsum_2(arr)
     current_sum = arr[0]
     
     (1...arr.length).each do |i|
-        current_sum+= arr[i] if current_sum + arr[i] > current_sum
-        largest_sum = current_sum if current_sum > largest_sum
+        if current_sum + arr[i] > current_sum
+          current_sum = current_sum + arr[i]
+        else 
+          largest_sum = current_sum if current_sum > largest_sum
+          current_sum = 0
+        end
     end
-    
-    return largest_sum
+    largest_sum
 end
 
 
