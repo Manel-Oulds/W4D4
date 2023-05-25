@@ -40,24 +40,21 @@ def largest_contiguous_subsum(list)
 
 #Phase2:
 def largest_contiguous_subsum_2(arr)
-    largest_sum = arr[0]
-    current_sum = arr[0]
-    
-    (1...arr.length).each do |i|
-        if current_sum + arr[i] > current_sum
-          current_sum = current_sum + arr[i]
-        else 
-          largest_sum = current_sum if current_sum > largest_sum
-          current_sum = 0
-        end
-    end
-    largest_sum
+  
+  current_sum = arr[0]
+  largest_sum = arr[0]
+  
+  (1...arr.length).each do |i|
+      current_sum = [arr[i], current_sum + arr[i]].max
+      largest_sum = [largest_sum, current_sum].max
+  end
+  
+  return largest_sum
 end
 
 
-list = [2,0,-2,3,4,7,0]
-
-p largest_contiguous_subsum(list)
+list = [2, 3, -6, 7, -6, 7]
+p largest_contiguous_subsum(list) # => 8 
 
 
 
