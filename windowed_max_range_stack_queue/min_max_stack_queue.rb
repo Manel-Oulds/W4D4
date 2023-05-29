@@ -1,6 +1,6 @@
 require_relative "min_max_stack"
 
-class MinMaxStack
+class MinMaxStackQueue
     def initialize
         @in_stack = MinMaxStack.new
         @out_stack = MinMaxStack.new
@@ -13,10 +13,16 @@ class MinMaxStack
         @stack.empty? && @out_stack.empty
     end
     def max
-        [@in_stack.max,@out_stack.max].max
+        maxes = []
+        maxes << @in_stack.max unless @in_stack.empty?
+        maxes << @out_stack.max unless @out_stack.empty?
+        maxes.max
     end
     def min
-        [@in_stack.max,@out_stack.max].min
+        mins = []
+        mins << @in_stack.min unless @in_stack.empty?
+        mins << @out_stack.min unless @out_stack.empty?
+        mins.min
     end
 
     def dequeue
@@ -24,7 +30,7 @@ class MinMaxStack
         @out_stack.pop
     end
     def enqueue(ele)
-        @store.push(val)
+        @in_stack.push(ele)
     end
     private
     def queueify
