@@ -1,4 +1,5 @@
-class StackQueue < MyStack
+require_relative "MyStack"
+class StackQueue 
     def initialize
         @in_stack = MyStack.new
         @out_stack = MyStack.new
