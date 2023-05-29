@@ -36,15 +36,28 @@ end
 
 
 def two_sum?(array,target)
+   hash = {}
+   array.each do |ele|
+    complement = target - ele
+    return true if hash[complement]
+    hash[ele] = true
+   end
+   return false
+end
+
+def two_sum_indices(array,target)
     hash = {}
-    array.each do |x|
-        c = target-x
-        return true if hash.has_key?(c)
-        hash[x] = c
+    array.each_with_index do |ele,i|
+        complement= target - ele
+        return [i,hash[complement]] if hash[complement]
+        hash[ele] = i
     end
-    return false
+    return nil
 end
 
 arr = [0, 1, 5, 7]
 p two_sum?(arr, 6) # => should be true
 p two_sum?(arr, 10) # => should be false
+
+p two_sum_indices(arr, 6) 
+p two_sum_indices(arr, 10)
